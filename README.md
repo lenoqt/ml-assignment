@@ -27,3 +27,9 @@ Should return:
   "result": "人生はチョコレートの箱のようなものだ。"
 }
 ```
+
+## Bonus points
+- Clean code
+- Scalable architecture
+- Good inference performance
+- Efficient CPU/GPU utilization
