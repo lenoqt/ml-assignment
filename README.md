@@ -16,8 +16,19 @@ You should first fork this repository and then create a PR when you're finished.
 When you execute this command:
 ```bash
 curl --location --request POST 'http://127.0.0.1:9527/translation' \
---header 'Content-Type: text/plain' \
---data-raw '{"payload": {"fromLang": "en","records": [{"id": "123","text": "Life is like a box of chocolates."}],"toLang": "ja"}}''
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "payload": {
+        "fromLang": "en",
+        "records": [
+            {
+                "id": "123",
+                "text": "Life is like a box of chocolates."
+            }
+        ],
+        "toLang": "ja"
+    }
+}'
 ```
 
 Should return:
