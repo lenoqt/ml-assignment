@@ -11,7 +11,7 @@ You should first fork this repository and then create a PR when you're finished.
 - **k8s/deployment.yaml**: To deploy image to Kubernetes
 - Other necessary code
 
-## Input/Ouput
+## Input/Output
 
 When you execute this command:
 ```bash
