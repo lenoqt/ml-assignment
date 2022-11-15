@@ -1,5 +1,5 @@
 # mlops-test
-Please implement a inference service of translation that runs on k8s and provides a RESTful API on port 9527.
+Please implement a inference service of translation that runs on Kubernetes and provides a RESTful API on port 9527.
 
 The translation model is `M2M100`, and the example can be found in `app/translation_example.py`.
 
