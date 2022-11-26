@@ -11,6 +11,7 @@ if __name__ == "__main__":
     tgt_lang = "人生はチョコレートの箱のようなものだ。"
 
     tokenizer.src_lang = "en"
+    config = M2M100Config.from_pretrained("facebook/m2m100_418M")
     model_inputs = tokenizer(src_text, return_tensors="pt")
     generated_tokens = model.generate(**model_inputs, forced_bos_token_id=tokenizer.get_lang_id("ja"))
     result = tokenizer.batch_decode(generated_tokens, skip_special_tokens=True)

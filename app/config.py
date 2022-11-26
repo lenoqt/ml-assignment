@@ -2,7 +2,7 @@ import os
 from dataclasses import dataclass
 from typing import Optional, Union
 
-from pydantic import BaseSettings
+from pydantic import BaseSettings, Field
 from pydantic.networks import IPvAnyAddress
 from pydantic.types import ConstrainedInt, SecretStr, conint
 
@@ -13,9 +13,10 @@ class GlobalConfig(BaseSettings):
     ENV_STATE: Optional[str] = None
     APP_IPADDR: Optional[IPvAnyAddress] = None
     APP_PORT: Optional[Port] = None
-    MINIO_IP: Optional[IPvAnyAddress] = None
-    MINIO_PORT: Optional[Port] = None
-    MINIO_PASSWORD: Optional[SecretStr] = None
+    MINIO_ENDPOINT: Optional[str] = None
+    MINIO_ACCESS_KEY: Optional[SecretStr] = None
+    MINIO_SECRET_KEY: Optional[SecretStr] = None
+    S3_BUCKET_NAME: Optional[str] = Field(default="ml_metadata")
 
     class Config:
         env_file: str = f"{os.getenv('PWD', '.')}/.env"
@@ -46,4 +47,3 @@ class ConfigFactory:
                 return ProdConfig()
             case _:
                 raise ValueError(f"Env State not valid, got instead {self.env_state}")
-
