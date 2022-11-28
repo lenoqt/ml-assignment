@@ -1,4 +1,4 @@
-from app.storage import Model
+from modules.storage import Model
 import pytest
 import torch.nn as nn
 from transformers import (
@@ -63,7 +63,30 @@ def test_model_pre_trained(pretrained_model):
     assert model.config
     assert model.id
 
-#@pytest.mark.skipif(env_state == "dev", reason="Test only for integration")
 def test_upload_simple_model(simple_model_instance):
     simple_model_instance.upload_to_minio_s3()
-    assert 1
+    
+    for _, uploaded in simple_model_instance._uploaded.items():
+        assert uploaded
+
+    simple_model_instance.delete_from_minio_s3()
+
+def test_get_simple_model(simple_model_instance):
+    model_id = str(simple_model_instance.id)
+    simple_model_instance.upload_to_minio_s3()
+
+    model_from_s3 = Model.from_minio_s3(model_id)
+
+    assert isinstance(model_from_s3.model, nn.Module)
+
+    simple_model_instance.delete_from_minio_s3()
+
+def test_upload_pre_trained(pretrained_model):
+    model, tokenizer, config = pretrained_model 
+    pre_trained = Model(model=model, tokenizer=tokenizer, config=config)
+    pre_trained.upload_to_minio_s3()
+    
+    for _, uploaded in pre_trained._uploaded.items():
+        assert uploaded
+
+    pre_trained.delete_from_minio_s3()

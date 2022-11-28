@@ -6,3 +6,5 @@ pytest-mock
 mypy
 pydantic
 transformers
+httpx
+fastapi

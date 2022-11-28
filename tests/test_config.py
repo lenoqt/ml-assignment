@@ -1,4 +1,4 @@
-from app.config import ConfigFactory
+from modules.config import ConfigFactory
 
 def test_config(global_config):
     dev_config = ConfigFactory(global_config.ENV_STATE).get_config()

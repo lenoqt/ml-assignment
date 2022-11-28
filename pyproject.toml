@@ -3,11 +3,11 @@ requires = ['setuptools>=60.0', 'wheel']
 build-backend = 'setuptools.build_meta'
 
 [tool.pytest.ini.options]
-addopts = '--cov=app --cov-report=term-missing'
+addopts = '--cov=modules --cov-report=term-missing -p no:warnings'
 testpaths = 'tests'
 
 [tool.mypy]
-mypy_path = 'app'
+mypy_path = 'modules'
 check_untyped_defs = true
 disallow_any_generics = true
 ignore_missing_imports = false
