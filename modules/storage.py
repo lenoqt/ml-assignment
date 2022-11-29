@@ -10,6 +10,7 @@ import torch.nn as nn
 import pickle
 import logging
 import io
+import torch
 from minio import Minio
 from minio.deleteobjects import DeleteObject
 from minio.error import S3Error
@@ -127,7 +128,12 @@ class Model:
 
     @classmethod
     def from_pretrained(cls, name: str) -> Self:
-        model = M2M100ForConditionalGeneration.from_pretrained(name, device_map=app_config.DEVICE, load_in_8bit=False)
+        model = M2M100ForConditionalGeneration.from_pretrained(name,
+                                                               device_map=app_config.DEVICE,
+                                                               load_in_8bit=False,
+                                                               torch_dtype=torch.float16,
+                                                               offload_folder="offload",
+                                                               offload_state_dict=True)
         tokenizer = M2M100Tokenizer.from_pretrained(name)
         config = M2M100Config()
         return cls(model=model, tokenizer=tokenizer, config=config)
