@@ -127,7 +127,7 @@ class Model:
 
     @classmethod
     def from_pretrained(cls, name: str) -> Self:
-        model = M2M100ForConditionalGeneration.from_pretrained(name)
+        model = M2M100ForConditionalGeneration.from_pretrained(name, device_map=app_config.DEVICE, load_in_8bit=False)
         tokenizer = M2M100Tokenizer.from_pretrained(name)
         config = M2M100Config()
         return cls(model=model, tokenizer=tokenizer, config=config)

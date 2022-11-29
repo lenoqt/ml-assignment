@@ -19,6 +19,7 @@ class GlobalConfig(BaseSettings):
     MINIO_ACCESS_KEY: Optional[SecretStr] = Field(default_factory=str)
     MINIO_SECRET_KEY: Optional[SecretStr] = Field(default_factory=str)
     S3_BUCKET_NAME: Optional[str] = Field(default="ml-metadata")
+    DEVICE: Optional[str] = Field(default="auto")
 
     class Config:
         env_file: str = f"{os.getenv('PWD', '.')}/.env"
