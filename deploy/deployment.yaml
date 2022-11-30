@@ -1,0 +1,40 @@
+# https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: translator
+  namespace: default
+  labels:
+    app: translator
+spec:
+  selector:
+    matchLabels:
+      app: translator
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: translator
+    spec:
+      # initContainers:
+        # Init containers are exactly like regular containers, except:
+          # - Init containers always run to completion.
+          # - Each init container must complete successfully before the next one starts.
+      containers:
+      - name: translator
+        image: lenoqt/translator:latest
+        resources:
+          limits:
+            nvidia.com/gpu: 1
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort:  9527
+          name:  http
+        volumeMounts:
+        - name: env-file-vol
+          mountPath: "/code/.env"
+          subPath: .env
+      volumes:
+        - name: env-file-vol
+          secret:
+            secretName: env-dev
